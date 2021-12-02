@@ -122,7 +122,7 @@ int tentangProgram(){
  printf(" Dibuat Oleh : \n");
  printf(" Widi dan Bayu \n");
  printf(" 2105551015 dan 2105551018 \n");
- printf(" TI UDAYANA \n");
+ printf(" TI Udayana \n");
 }
 //kode program untuk keluar
 int keluar(){

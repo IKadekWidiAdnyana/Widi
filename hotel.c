@@ -33,7 +33,7 @@ int awal(){
 int menu;
 printf("================================================\n");
  printf(" Selamat Datang \n");
- printf(" Hotel Amaarosa \n");
+ printf(" Entity's Hotel \n");
  printf("================================================\n\n");
  printf("1. Masuk\n");
  printf("2. Tentang\n");
@@ -64,7 +64,7 @@ int loginAll(){
 	int menu;
  printf("================================================\n");
  printf(" Selamat Datang \n");
- printf(" Hotel Amaarosa \n");
+ printf(" Entity's Hotel \n");
  printf("================================================\n\n");
  printf("Login sebagai : \n");
  printf("1. Admin\n");
@@ -89,7 +89,7 @@ int loginAll(){
 int login(){
  printf("================================================\n");
  printf(" Selamat Datang \n");
- printf(" Hotel Amaarosa \n");
+ printf(" Entity's Hotel \n");
  printf("================================================\n\n");
 
  printf("Masukkan Username : ");

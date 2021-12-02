@@ -120,9 +120,9 @@ int tentangProgram(){
  printf("================================================\n\n");
  printf(" Aplikasi Reservasi Kamar Hotel \n\n");
  printf(" Dibuat Oleh : \n");
- printf(" Irma Rismayanti \n");
- printf(" 49014091 \n");
- printf(" TKJMD Batch 9 \n");
+ printf(" Widi dan Bayu \n");
+ printf(" 2105551015 dan 2105551018 \n");
+ printf(" TI udayana \n");
 }
 //kode program untuk keluar
 int keluar(){

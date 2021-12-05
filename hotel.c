@@ -37,6 +37,7 @@ int header (){
 //AWAL
 int awal(){
 	int menu;
+	header();
  	printf("\t 1. Masuk \n");
  	printf("\t 2. Tentang Program \n");
  	printf("\t 3. Keluar \n");

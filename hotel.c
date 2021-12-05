@@ -5,6 +5,8 @@
 int awal();
 int login();
 int loginAll();
+int menuAdmin();
+int menuTamu();
 int ListKamar();
 int daftarKamarTamu();
 int pemesananKamar();
@@ -94,19 +96,52 @@ int loginAll(){
 int login(){
  	header();
  	login:
- printf("\t Masukkan Username : ");
+ printf("\tMasukkan Username : ");
  scanf_s("%s", &id_admin);
- printf("\t Masukkan Password : ");
+ printf("\tMasukkan Password : ");
  scanf_s("%s", &pass_admin);
+ system ("cls");
 
  if (strcmp(id_admin,"widi")==0 && strcmp(pass_admin,"2105551015")==0){
- 	printf("\t Login berhasil! \n");
+ 	printf("\n\tLOGIN BERHASIL!\n");
+ 	menuAdmin();
  }else if (strcmp(id_admin,"bayu")==0 && strcmp(pass_admin,"2105551018")==0){
- 	printf("\t Login berhasil! \n");
+ 	printf("\n\tLOGIN BERHASIL!\n");
+	menuAdmin();
  }else{
- 	printf("\t Mohon Maaf Username atau Password Yang Anda Masukkan Salah! \n \t Silahkan Coba Lagi! \n");
+ 	printf("\tMohon Maaf Username atau Password yang Anda Masukkan Salah!\n \tSilahkan Coba Lagi\n");
  	goto login;
  }
+}
+
+//Menu Admin
+int menuAdmin(){
+	header();
+	int menu;
+	
+ printf("\tMenu Khusus Admin : \n");
+ printf("\t1. Beranda\n");
+ printf("\t2. Daftar Kamar\n");
+ printf("\t3. Pemesanan\n");
+ printf("\t4. Keluar\n");
+
+ printf("\tMasukkan nomor menu pilihan anda : ");
+ scanf_s("%d", &menu);
+ system("cls");
+
+ switch (menu){
+ case 1:
+ awal();
+ break;
+ case 4:
+ keluar();
+ break;
+ default:
+ printf("Nomor menu yang anda masukkan tidak ada\n");
+ break;
+ }
+ return 0;
+	
 }
 
 //tentang program

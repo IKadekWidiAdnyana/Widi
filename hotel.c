@@ -45,6 +45,7 @@ int awal(){
  	printf("\t 3. Keluar \n");
  	printf("\t Masukkan nomor menu yang anda inginkan : ");
  	scanf_s("%d", &menu);
+	system("cls");
 
 
 switch (menu){

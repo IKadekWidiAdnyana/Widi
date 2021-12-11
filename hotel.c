@@ -44,7 +44,7 @@ int awal(){
  	printf("\t 2. Tentang Program \n");
  	printf("\t 3. Keluar \n");
  	printf("\t Masukkan nomor menu yang anda inginkan : ");
- 	scanf_s("%d", &menu);
+ 	scanf("%d", &menu);
 	system("cls");
 
 
@@ -73,7 +73,7 @@ int loginAll(){
  printf("\t 2. Tamu \n");
  printf("\t 3. Halaman Depan \n");
  printf("\t Masukkan menu pilihan anda : ");
- scanf_s("%d", &menu);
+ scanf("%d", &menu);
  system("cls");
 
  switch (menu){
@@ -100,7 +100,7 @@ int login(){
  printf("\tMasukkan Username : ");
  scanf_s("%s", &id_admin);
  printf("\tMasukkan Password : ");
- scanf_s("%s", &pass_admin);
+ scanf("%s", &pass_admin);
  system ("cls");
 
  if (strcmp(id_admin,"widi")==0 && strcmp(pass_admin,"2105551015")==0){
@@ -127,7 +127,7 @@ int menuAdmin(){
  printf("\t4. Keluar\n");
 
  printf("\tMasukkan nomor menu pilihan anda : ");
- scanf_s("%d", &menu);
+ scanf("%d", &menu);
  system("cls");
 
  switch (menu){

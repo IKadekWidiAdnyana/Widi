@@ -37,15 +37,15 @@ char namaFile[] = "logRecord.txt";
 //harga kamar/malam
 const float deluxeR = 900000;
 const float juniorS = 1500000;
-const float regencyS = 5500000;
 const float executiveS = 2500000;
+const float regencyS = 5500000;
 const float presidentialS = 10500000;
 
 //jumlah kamar/tipe
 int deluxeR = 10;
 int juniorS = 10;
-int regencyS = 5;
 int executiveS = 5;
+int regencyS = 5;
 int presidentialS = 5;
 
 

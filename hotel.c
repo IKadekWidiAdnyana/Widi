@@ -1,176 +1,106 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <conio.h>
+#include<stdio.h>
+#include<string.h>
+#include<stdlib.h>
+#include<time.h>
 
-int awal();
-int login();
-int loginAll();
-int menuAdmin();
-int menuTamu();
-int ListKamar();
-int daftarKamarTamu();
-int pemesananKamar();
-int keluar();
-int tentang();
-int tentangProgram();
-int halamanTamu();
-int header();
-int menu;
+int pilihanmenu;
+int pilihanmasuk;
+time_t waktuserver;
 
-//variabel admin
-char id_admin[20];
-char pass_admin[20];
-char nama_admin[20];
-char kode_admin[20];
+// Struct User untuk menyimpan member nama, username, password
+typedef struct {
+    char nama[50];
+    char username[12];
+    char password[10];
+    char email[50];
+}User;
+
+void header();
+void menu();
+void input_masukan();
+void error_alert();
+void menu_program();
+void menu_masuk();
+void menu_kategori();
+void email_pw();
+void daftar();
+void masuk();
+void waktu();
+void welcome();
+void keluar();
+void tentang_hotel();
+void tipe_kamar();
+User u; 
+
+char namaFile[] = "logRecord.txt";
+
+//harga kamar/malam
+const float deluxeR = 900000;
+const float juniorS = 1500000;
+const float regencyS = 5500000;
+const float executiveS = 2500000;
+const float presidentialS = 10500000;
+
 
 int main (){
-	awal();
-	system("pause");
-	return 0;
+    system ("color 2f");
+    header();
+    system ("cls");
+    menu_masuk();
+    menu_program();
+    //pemanggilan fungsi untuk menu program
+
 }
 
-int header (){
-	printf("\t==========================================================\n");
- 	printf(" \t\t\t >>>>>Selamat Datang<<<<< \n");
- 	printf(" \t\t\t >>>>>Entity's Hotel<<<<< \n");
- 	printf("\t==========================================================\n");
+void header(){
+    system ("cls");
+    welcome();
+	printf  ("\t\t\t\t\t=========================================================\n");
+	printf  ("\t\t\t\t\t||                                                     ||\n");	
+	printf  ("\t\t\t\t\t||       *Program Reservasi Kamar Entity's Hotel*      ||\n");
+	printf  ("\t\t\t\t\t||                                                     ||\n");
+	printf  ("\t\t\t\t\t---------------------------------------------------------\n");
+	printf  ("\t\t\t\t\t||                         Oleh                        ||\n");
+	printf  ("\t\t\t\t\t||                                                     ||\n");
+	printf  ("\t\t\t\t\t||  1. I Kadek Widi Adnyana             (2105551015)   ||\n");
+	printf  ("\t\t\t\t\t||  2. Bayu Indra Mahadika              (2105551018)   ||\n");
+	printf  ("\t\t\t\t\t||                                                     ||\n");
+	printf  ("\t\t\t\t\t||           Program Studi Teknologi Informasi         ||\n");
+	printf  ("\t\t\t\t\t||                   Fakultas Teknik                   ||\n");
+	printf  ("\t\t\t\t\t||                 Universitas Udayana                 ||\n");
+	printf  ("\t\t\t\t\t||                        2021                         ||\n");
+	printf  ("\t\t\t\t\t=========================================================\n");
+	printf  ("\t\t\t\t\t                Tekan ENTER  untuk melanjutkan....       \n");
+    printf  ("\t\t\t\t\t=========================================================\n");
+	getchar ();
+    system ("cls");
 }
 
-//AWAL
-int awal(){
-	int menu;
-	header();
- 	printf("\t 1. Masuk \n");
- 	printf("\t 2. Tentang Program \n");
- 	printf("\t 3. Keluar \n");
- 	printf("\t Masukkan nomor menu yang anda inginkan : ");
- 	scanf("%d", &menu);
-	system("cls");
-
-
-switch (menu){
-	case 1:
- 		loginAll(); // jika user memasukkan 1, makan menjalankan fungsi loginAll()
- 		break;
- 	case 2:
- 		tentangProgram(); // jika user memasukkan 2, makan menjalankan fungsi tentangProgram()
- 		break;
- 	case 3:
- 		keluar(); // jika user memasukkan 3, makan menjalankan fungsi keluar()
- 		break; 
- 	default:
- 	printf("Maaf, nomor menu yang anda masukkan salah! \n");
- }
- return 0;
-}
-
-//Menu LogIn Utama
-int loginAll(){
-	int menu;
-	header();
- printf("\t Login sebagai : \n");
- printf("\t 1. Admin \n");
- printf("\t 2. Tamu \n");
- printf("\t 3. Halaman Depan \n");
- printf("\t Masukkan menu pilihan anda : ");
- scanf("%d", &menu);
- system("cls");
-
- switch (menu){
- case 1:
- login();
- break;
- case 2:
- halamanTamu();
- break;
- case 3:
- awal();
- break;
- default:
- printf("Maaf, nomor menu yang anda masukkan tidak ada! \n");
- break;
- }
- return 0;
-}
-
-//login Sebagai Admin
-int login(){
- 	header();
- 	login:
- printf("\tMasukkan Username : ");
- scanf_s("%s", &id_admin);
- printf("\tMasukkan Password : ");
- scanf("%s", &pass_admin);
- system ("cls");
-
- if (strcmp(id_admin,"widi")==0 && strcmp(pass_admin,"2105551015")==0){
- 	printf("\n\tLOGIN BERHASIL!\n");
- 	menuAdmin();
- }else if (strcmp(id_admin,"bayu")==0 && strcmp(pass_admin,"2105551018")==0){
- 	printf("\n\tLOGIN BERHASIL!\n");
-	menuAdmin();
- }else{
- 	printf("\tMohon Maaf Username atau Password yang Anda Masukkan Salah!\n \tSilahkan Coba Lagi\n");
- 	goto login;
- }
-}
-
-//Menu Admin
-int menuAdmin(){
-	header();
-	int menu;
-	
- printf("\tMenu Khusus Admin : \n");
- printf("\t1. Beranda\n");
- printf("\t2. Daftar Kamar\n");
- printf("\t3. Pemesanan\n");
- printf("\t4. Keluar\n");
-
- printf("\tMasukkan nomor menu pilihan anda : ");
- scanf("%d", &menu);
- system("cls");
-
- switch (menu){
- case 1:
- awal();
- break;
- case 4:
- keluar();
- break;
- default:
- printf("Nomor menu yang anda masukkan tidak ada\n");
- break;
- }
- return 0;
-	
-}
-
-//tentang program
-int tentangProgram(){
- int menu;
- printf("\t==========================================================\n");
- printf(" \t\t\t >>>>>Tentang Program<<<<< \n");
- printf("\t==========================================================\n");
- printf(" \t\t\t Aplikasi Reservasi Kamar Hotel \n\n");
- printf("Dibuat Oleh : \n");
- printf("Widi dan Bayu \n");
- printf("2105551015 dan 2105551018 \n");
- printf("TI Udayana \n");
-}
-
-//Halaman Tamu
-int halamanTamu(){
-	int menu;
-	header();
-	
-}
-
-//kode program untuk keluar
-int keluar(){
- printf("\t==========================================================\n");
- printf(" \t\t >>>>>Terima Kasih Telah Menginap<<<<< \n");
- printf(" \t\t\t >>>>>Sampai Jumpa<<<<< \n");
- printf("\t==========================================================\n");
-
- return 0;
+void menu_program(){
+    pilih:
+    printf  ("\t\t\t\t\t---------------------------------------------------------\n");
+	printf  ("\t\t\t\t\t||                     MENU PROGRAM                    ||\n");
+	printf  ("\t\t\t\t\t---------------------------------------------------------\n");
+	printf  ("\t\t\t\t\t||   NO  |    PILIHAN MENU                             ||\n");
+	printf  ("\t\t\t\t\t---------------------------------------------------------\n");
+	printf  ("\t\t\t\t\t||   1   |    MENU                                     ||\n");
+	printf  ("\t\t\t\t\t||   2   |    KELUAR                                   ||\n");
+	printf  ("\t\t\t\t\t---------------------------------------------------------\n");
+	printf ("\t\t\t\t\t Masukkan nomor menu yang anda inginkan ==> ");
+    scanf  ("%d",&pilihanmenu);
+    printf  ("\t\t\t\t\t---------------------------------------------------------\n");
+    system("cls");
+    
+    switch(pilihanmenu){
+    	case 1:
+    		menu_kategori();
+    		break;
+    	case 2:
+    		system (EXIT_SUCCESS);
+    	default:
+        	error_alert();
+        	goto pilih;
+        break;
+	}
+    
 }

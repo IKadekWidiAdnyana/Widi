@@ -46,7 +46,7 @@ int jmlh_deluxeR = 10;
 int jmlh_juniorS = 10;
 int jmlh_executiveS = 5;
 int jmlh_regencyS = 5;
-int jmlh_presidentialS = 5;
+int jmlh_presidentialS = 3;
 
 
 int main (){

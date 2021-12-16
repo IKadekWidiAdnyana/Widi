@@ -103,10 +103,11 @@ void menu_program(){
     		break;
     	case 2:
     		system (EXIT_SUCCESS);
+		break;
     	default:
         	error_alert();
         	goto pilih;
-        break;
+                break;
 	}
 }
 

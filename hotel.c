@@ -41,6 +41,13 @@ const float regencyS = 5500000;
 const float executiveS = 2500000;
 const float presidentialS = 10500000;
 
+//jumlah kamar/tipe
+int deluxeR = 10;
+int juniorS = 10;
+int regencyS = 5;
+int executiveS = 5;
+int presidentialS = 5;
+
 
 int main (){
     system ("color 2f");

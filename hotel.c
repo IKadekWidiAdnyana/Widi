@@ -232,14 +232,14 @@ void tipe_kamar(){
 	printf  ("\t|                 |                 | Non Alkohol, AC, Televisi Kabel Dan Telepon Sambungan       |             |              |\n");
 	printf  ("\t|                 |                 | Langsung Internasional.                                     |             |              |\n");
 	printf  ("\t|-----------------|-----------------|-------------------------------------------------------------|-------------|--------------|\n");
-	printf  ("\t|        R        |  REGENCY SUITE  | Lokasi Di Lantai 4-9, Tempat Tidur King, Ukuran 106m2,      |Rp.5.500.000 |   5 Kamar    |\n");
+	printf  ("\t|        E        | EXECUTIVE SUITE | Lokasi Di Lantai 3-6 dan 9, Tempat Tidur King, Ukuran 99m2, |Rp.2.500.000 |   5 Kamar    |\n");
 	printf  ("\t|                 |    Kapasitas    | Balkon Pribadi, Pembuat Kopi Dengan Cangkir N Saucer,       |             |              |\n");
 	printf  ("\t|                 |     2 Orang     | Kamar Mandi Dengan Bathtub Terpisah, Koneksi WI-FI          |             |              |\n");
 	printf  ("\t|                 |                 | Dalam Kamar, Mini Bar Isi Ulang Harian Untuk Minuman        |             |              |\n");
 	printf  ("\t|                 |                 | Non Alkohol, AC, Televisi Kabel Dan Telepon Sambungan       |             |              |\n");
 	printf  ("\t|                 |                 | Langsung Internasional.                                     |             |              |\n");
 	printf  ("\t|-----------------|-----------------|-------------------------------------------------------------|-------------|--------------|\n");
-	printf  ("\t|        E        | EXECUTIVE SUITE | Lokasi Di Lantai 3-6 dan 9, Tempat Tidur King, Ukuran 99m2, |Rp.2.500.000 |   5 Kamar    |\n");
+	printf  ("\t|        R        |  REGENCY SUITE  | Lokasi Di Lantai 4-9, Tempat Tidur King, Ukuran 106m2,      |Rp.5.500.000 |   5 Kamar    |\n");
 	printf  ("\t|                 |    Kapasitas    | Balkon Pribadi, Pembuat Kopi Dengan Cangkir N Saucer,       |             |              |\n");
 	printf  ("\t|                 |     2 Orang     | Kamar Mandi Dengan Bathtub Terpisah, Koneksi WI-FI          |             |              |\n");
 	printf  ("\t|                 |                 | Dalam Kamar, Mini Bar Isi Ulang Harian Untuk Minuman        |             |              |\n");

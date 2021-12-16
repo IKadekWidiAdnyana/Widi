@@ -42,11 +42,11 @@ const float regencyS = 5500000;
 const float presidentialS = 10500000;
 
 //jumlah kamar/tipe
-int deluxeR = 10;
-int juniorS = 10;
-int executiveS = 5;
-int regencyS = 5;
-int presidentialS = 5;
+int jmlh_deluxeR = 10;
+int jmlh_juniorS = 10;
+int jmlh_executiveS = 5;
+int jmlh_regencyS = 5;
+int jmlh_presidentialS = 5;
 
 
 int main (){

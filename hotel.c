@@ -210,7 +210,7 @@ void menu_admin(){
 	printf  ("\t\t\t\t\t---------------------------------------------------------\n");
 	printf  ("\t\t\t\t\t||   1   |    LIHAT TIPE KAMAR                         ||\n");
 	printf  ("\t\t\t\t\t||   2   |    PESAN KAMAR                              ||\n");
-	printf  ("\t\t\t\t\t||   3   |    KELUAR                                   ||\n");
+	printf  ("\t\t\t\t\t||   3   |    KEMBALI KE MENU PROGRAM                  ||\n");
 	printf  ("\t\t\t\t\t---------------------------------------------------------\n");
 	printf  ("\t\t\t\t\t Masukkan nomor menu yang anda inginkan ==> ");
 	scanf   ("%d", &admin1);
@@ -226,7 +226,7 @@ void menu_admin(){
 			pesan_kamar();
 			break;
 		case 3:
-			keluar();
+			menu_masuk();
 			break;
 		default:
 			// Kembali ke label ktgri_admin jika terjadi kesalahan dalam menginput pilihan

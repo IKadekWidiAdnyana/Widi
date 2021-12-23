@@ -190,7 +190,7 @@ void menu_masuk(){
         break;
     case 4:
     	// Jika pengguna menginput angka 4 maka program akan keluar/selesai
-    	exit(1);
+    	keluar();
     	break;
     default:
     	// Kembali ke label menu_program jika terjadi kesalahan dalam menginput pilihan

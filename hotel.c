@@ -366,7 +366,6 @@ void pesan_kamar(){
 		int pilih_tipe;
 		int jumlah_kamar;
 		int lama_sewa;
-		char cekIn;
 	}Pesan;
 	tipe_kamar();
 	int total=0;

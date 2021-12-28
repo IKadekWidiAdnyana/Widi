@@ -20,7 +20,6 @@ int biaya_admin=5000;
 //Deklarasi Variabel admin
 char id_admin[20];
 char pass_admin[20];
-char nama_admin[20];
 
 //Deklarasi fungsi-fungsi yang digunakan pada program ini
 void header();

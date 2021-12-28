@@ -13,8 +13,6 @@ typedef struct {
 User u;
 
 //deklarasi variabel
-int pilihanmenu;
-int pilihanmasuk;
 time_t waktuserver;
 int biaya_admin=5000;
 

@@ -579,5 +579,5 @@ void daftar(){
 void waktu(){
     time( & waktuserver);
     struct tm * waktu = localtime( & waktuserver);
-    printf("\n\t\t\t\t\t||************************Tanggal: %i/%i/%i*************************||\n\n", waktu -> tm_mday, waktu -> tm_mon + 1, waktu -> tm_year + 1900);
+    printf("\n\t\t\t\t\t||************************Tanggal: %i/%i/%i/%i:%i*************************||\n\n", waktu -> tm_mday, waktu -> tm_mon + 1, waktu -> tm_year + 1900, waktu -> tm_hour, waktu -> tm_min);
 }

@@ -27,7 +27,6 @@ void menu();
 void error_alert();
 void menu_masuk();
 void menu_kategori();
-void email_pw();
 void daftar();
 void masuk();
 void waktu();

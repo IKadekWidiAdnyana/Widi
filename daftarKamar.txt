@@ -1,0 +1,41 @@
+|--------------------------------------------------------DAFTAR TIPE KAMAR-----------------------------------------------------|
+|------------------------------------------------------------------------------------------------------------------------------|
+| KODE TIPE KAMAR | NAMA TIPE KAMAR |                    FASILITAS                                | HARGA/MALAM | JUMLAH KAMAR |
+|-----------------|-----------------|-------------------------------------------------------------|-------------|--------------|
+|        1        |   DELUXE ROOM   | Lokasi Di Lantai 3 - 9, Tempat Tidur King/Twin,             |Rp.900.000   |   10 Kamar   |
+|                 |    Kapasitas    | Ukuran 32m2, Balkon Pribadi, Pembuat Kopi Dengan            |             |              |
+|                 |     2 Orang     | Cangkir N Saucer, Kamar Mandi Dengan Bathtub Terpisah,      |             |              |
+|                 |                 | Koneksi WI-FI Dalam Kamar, Mini Bar Isi Ulang Harian Untuk  |             |              |
+|                 |                 | Untuk Minuman Non Alkohol, AC, Televisi Kabel Dan Telepon   |             |              |
+|                 |                 | Langsung Internasional.                                     |             |              |
+|-----------------|-----------------|-------------------------------------------------------------|-------------|--------------|
+|        2        |   JUNIOR SUITE  | Lokasi Di Lantai 3, Tempat Tidur King, Ukuran 100m2,        |Rp.1.500.000 |   10 Kamar   |
+|                 |    Kapasitas    | Balkon Pribadi, Pembuat Kopi Dengan Cangkir N Saucer,       |             |              |
+|                 |     2 Orang     | Kamar Mandi Dengan Bathtub Terpisah, Koneksi WI-FI          |             |              |
+|                 |                 | Dalam Kamar, Mini Bar Isi Ulang Harian Untuk Minuman        |             |              |
+|                 |                 | Non Alkohol, AC, Televisi Kabel Dan Telepon Sambungan       |             |              |
+|                 |                 | Langsung Internasional.                                     |             |              |
+|-----------------|-----------------|-------------------------------------------------------------|-------------|--------------|
+|        3        | EXECUTIVE SUITE | Lokasi Di Lantai 3-6 dan 9, Tempat Tidur King, Ukuran 99m2, |Rp.2.500.000 |   5 Kamar    |
+|                 |    Kapasitas    | Balkon Pribadi, Pembuat Kopi Dengan Cangkir N Saucer,       |             |              |
+|                 |     2 Orang     | Kamar Mandi Dengan Bathtub Terpisah, Koneksi WI-FI          |             |              |
+|                 |                 | Dalam Kamar, Mini Bar Isi Ulang Harian Untuk Minuman        |             |              |
+|                 |                 | Non Alkohol, AC, Televisi Kabel Dan Telepon Sambungan       |             |              |
+|                 |                 | Langsung Internasional.                                     |             |              |
+|-----------------|-----------------|-------------------------------------------------------------|-------------|--------------|
+|        4        |  REGENCY SUITE  | Lokasi Di Lantai 4-9, Tempat Tidur King, Ukuran 106m2,      |Rp.5.500.000 |   5 Kamar    |
+|                 |    Kapasitas    | Balkon Pribadi, Pembuat Kopi Dengan Cangkir N Saucer,       |             |              |
+|                 |     2 Orang     | Kamar Mandi Dengan Bathtub Terpisah, Koneksi WI-FI          |             |              |
+|                 |                 | Dalam Kamar, Mini Bar Isi Ulang Harian Untuk Minuman        |             |              |
+|                 |                 | Non Alkohol, AC, Televisi Kabel Dan Telepon Sambungan       |             |              |
+|                 |                 | Langsung Internasional.                                     |             |              |
+|-----------------|-----------------|-------------------------------------------------------------|-------------|--------------|
+|        5        |   PRESIDENTIAL  | Lokasi Di Lantai 7-8, 2 Tempat Tidur King, Ukuran 165m2,    |Rp.10.500.000|   5 Kamar    |
+|                 |      SUITE      | Satu Ruang Pertemuan, Ruang Perpustakaan, Ruang Tamu        |             |              |
+|                 |    Kapasitas    | yang Luas,  Balkon Pribadi yang luas, Pembuat Kopi Dengan   |             |              |
+|                 |     4 Orang     | Cangkir N Saucer, Kamar Mandi Dengan Bathtub dan Pancuran   |             |              |
+|                 |                 | Terpisah, Koneksi WI-FI Dalam Kamar, Mini Bar Isi Ulang     |             |              |
+|                 |                 | Harian Untuk MinumanNon Alkohol, AC, Tangga Unik Penghubung |             |              |
+|                 |                 | Ke Lantai 8 Televisi Kabel Dan Telepon Sambungan Langsung   |             |              |
+|                 |                 | Internasional.                                              |             |              |
+|-----------------|-----------------|-------------------------------------------------------------|-------------|--------------|

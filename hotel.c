@@ -2,6 +2,7 @@
 #include<string.h>
 #include<stdlib.h>
 #include<time.h>
+#define JUM_BLOK 1
 
 // Struct User untuk menyimpan member nama, username, password
 typedef struct {
@@ -16,6 +17,19 @@ User u;
 time_t waktuserver;
 int biaya_admin=5000;
 
+//struct untuk pesan kamar
+struct pesanKamar{
+		int id_pemesan;
+		char nama[20];
+		char noHP[20];
+		char jenis_kelamin[5];
+		int umur;
+		int pilih_tipe;
+		int jumlah_kamar;
+		int lama_sewa;
+	}Pesan;
+	
+int total=0;
 
 //Deklarasi Variabel admin
 char id_admin[20];
@@ -39,6 +53,9 @@ void tipe_Kamar();
 void masuk_admin();
 void menu_admin();
 void pesan_lagi();
+void data_pemesan();
+void list_data_pemesan();
+void lihat_data_pemesan();
 	
 // assign namaFile (nF) agar menyimpan string "logRecord.txt"
 char namaFile[] = "logRecord.txt";
@@ -199,7 +216,8 @@ void menu_admin(){
 	printf  ("\t\t\t\t\t---------------------------------------------------------\n");
 	printf  ("\t\t\t\t\t||   1   |    LIHAT TIPE KAMAR                         ||\n");
 	printf  ("\t\t\t\t\t||   2   |    PESAN KAMAR                              ||\n");
-	printf  ("\t\t\t\t\t||   3   |    KEMBALI KE MENU PROGRAM                  ||\n");
+	printf  ("\t\t\t\t\t||   3   |    LIHAT DATA PEMESANAN                     ||\n");
+	printf  ("\t\t\t\t\t||   4   |    KEMBALI KE MENU PROGRAM                  ||\n");
 	printf  ("\t\t\t\t\t---------------------------------------------------------\n");
 	printf  ("\t\t\t\t\t Masukkan nomor menu yang anda inginkan ==> ");
 	scanf   ("%d", &admin1);
@@ -215,8 +233,10 @@ void menu_admin(){
 			pesan_kamar();
 			break;
 		case 3:
-			menu_masuk();
+			lihat_data_pemesanan();
 			break;
+		case 4:
+			menu_masuk();
 		default:
 			// Kembali ke label ktgri_admin jika terjadi kesalahan dalam menginput pilihan
         	error_alert();
@@ -347,30 +367,24 @@ void tipe_Kamar(){
 
 //fungsi pemesanan
 void pesan_kamar(){
-	struct pesanKamar{
-		char nama[20];
-		char noHP[20];
-		char jenis_kelamin[5];
-		int umur;
-		int pilih_tipe;
-		int jumlah_kamar;
-		int lama_sewa;
-	}Pesan;
 	tipe_kamar();
-	int total=0;
+	
     printf ("\n\n");
     printf  ("\t\t\t\t\t---------------------------------------------------------------\n");
     printf ("\t\t\t\t\t||                MASUKKAN DATA PEMESANAN KAMAR               ||\n");
     printf  ("\t\t\t\t\t---------------------------------------------------------------\n");
-    printf  ("\t\t\t\t\t|NAMA PEMESAN              :");
-    scanf   ("%s", Pesan.nama, 20);
-    printf  ("\t\t\t\t\t|NOMOR HP                  :");
-    scanf   ("%s", &Pesan.noHP);
-    printf  ("\t\t\t\t\t|JENIS KELAMIN             :");
-    scanf   ("%s", &Pesan.jenis_kelamin);
-    printf  ("\t\t\t\t\t|UMUR                      :");
-    scanf   ("%d", &Pesan.umur);
     
+    FILE* dtpesan;
+    dtpesan = fopen ("datapesan.txt", "ab");
+    if (dtpesan== NULL ){
+		printf("\t\t\t\t\t|File tidak dapat dibuat!\r\n");
+		menu_admin();
+	}
+    printf  ("\t\t\t\t\t|ID PEMESAN                :"); fflush(stdin); scanf("%d", &Pesan.id_pemesan);
+    printf  ("\t\t\t\t\t|NAMA PEMESAN              :"); fflush(stdin); scanf("%s", Pesan.nama, 20);
+    printf  ("\t\t\t\t\t|NOMOR HP                  :"); fflush(stdin); scanf("%s", &Pesan.noHP);
+    printf  ("\t\t\t\t\t|JENIS KELAMIN             :"); fflush(stdin); scanf("%s", &Pesan.jenis_kelamin);
+    printf  ("\t\t\t\t\t|UMUR                      :"); fflush(stdin); scanf("%d", &Pesan.umur);
     printf  ("\t\t\t\t\t|PILIHAN TIPE KAMAR\n");
     printf  ("\t\t\t\t\t 1. DELUXE ROOM \n");
     printf  ("\t\t\t\t\t 2. JUNIOR SUITE \n");
@@ -378,17 +392,21 @@ void pesan_kamar(){
     printf  ("\t\t\t\t\t 4. REGENCY SUITE \n");
     printf  ("\t\t\t\t\t 5. PRESIDENTIAL SUITE \n");
     
-    printf  ("\t\t\t\t\t|PILIH TIPE KAMAR          :");
-    scanf   ("%d", &Pesan.pilih_tipe, 10);
-    printf  ("\t\t\t\t\t|JUMLAH KAMAR PESAN        :");
-    scanf   ("%d", &Pesan.jumlah_kamar);
-    printf  ("\t\t\t\t\t|LAMA INAP                 :");
-    scanf   ("%d", &Pesan.lama_sewa);
+    printf  ("\t\t\t\t\t|PILIH TIPE KAMAR          :"); fflush(stdin); scanf("%d", &Pesan.pilih_tipe, 10);
+    printf  ("\t\t\t\t\t|JUMLAH KAMAR PESAN        :"); fflush(stdin); scanf("%d", &Pesan.jumlah_kamar);
+    printf  ("\t\t\t\t\t|LAMA INAP                 :"); fflush(stdin); scanf("%d", &Pesan.lama_sewa);
+    fwrite(&Pesan, sizeof(Pesan), 1, dtpesan);
     system("cls");
-    
+    data_pemesan (); //mencetak struk dengan memanggil fungsi detPemesanan
+		printf ("\t\t\t\t\t Data pemesanan tersimpan. \n");
+		fclose(dtpesan);
+}
+
+void data_pemesan(){
     printf  ("\t\t\t\t\t---------------------------------------------------------------\n");
     printf ("\t\t\t\t\t||                       DATA PEMESANAN                       ||\n");
     printf  ("\t\t\t\t\t---------------------------------------------------------------\n");
+    printf  ("\t\t\t\t\t|ID PEMESAN                :%d\n", Pesan.id_pemesan);
     printf  ("\t\t\t\t\t|NAMA PEMESAN              :%s\n", Pesan.nama);
     printf  ("\t\t\t\t\t|NOMOR HP                  :%s\n", Pesan.noHP);
     printf  ("\t\t\t\t\t|JENIS KELAMIN             :%s\n", Pesan.jenis_kelamin);
@@ -422,18 +440,52 @@ void pesan_kamar(){
 		total = (Pesan.lama_sewa*presidentialS+biaya_admin)* Pesan.jumlah_kamar;
 		printf  ("\t\t\t\t\t|HARGA TOTAL               :Rp. %d\n", total);
 	} 
-	pesan_lagi();  
+	pesan_lagi();
+}
+
+void lihat_data_pemesan(){
+	char kembali; //deklarasi opsi_kembali ke dalam variabel bertipe data char
+	system ("cls");
+	list_data_pemesan (); //memanggil fungsi list_data_pemesan
+	opsi :
+	printf("\t\t| Kembali ke menu ketik Y : ");
+	scanf ("%s", &kembali);
+	if (kembali=='Y'||kembali=='y') //jika mengetik Y atau y maka akan mengarah pada fungsi menuadm
+	    menu_admin();
+	else //jika selain Y atau y maka akan balik pada opsi
+	    goto opsi ;
 }
 
 void pesan_lagi(){
 	char pesan;
-	printf ("\t|Pesan Kamar Lagi [Y/T] : ") ;
+	printf("\t\t\t\t\t------------------------------------------------------------\n");
+	printf ("\t\t\t\t\t|Pesan Kamar Lagi [Y/T]	: ") ;
 	scanf  ("%s", &pesan);
 	system ("cls");
 	if (pesan == 'Y'|| pesan == 'y')
 		pesan_kamar();  //jika ingin memesan kamar maka akan menuju fungsi pesan_kama()
 	else 
 		menu_admin();//kembali ke fungsi menu_admin() jika tidak ingin memesan kamar
+}
+
+void list_data_pemesan(){
+	system ("cls");
+	printf ("\t\t|**********************************************************************************************************************************|\n");
+	printf ("\t\t|                                                 DATA PEMESAN KAMAR                                                               |\n");
+	printf ("\t\t|**********************************************************************************************************************************|\n");
+	printf ("\t\t| Id Pemesan | Kode Kamar |     Nama Pemesan      |        NO HP      |     Jumlah Kamar Pesan     | Lama Inap  |   Total Bayar    |\n");
+	printf ("\t\t|------------|------------|-----------------------|-------------------|----------------------------|------------|------------------|\n");                                                                                          
+	FILE*dtpesan ; // Membuat pointer dtpesan untuk menunjuk pada file "datapesan.txt"
+    dtpesan = fopen ("datapesan.txt", "rt"); // Membuka file "datapesan.txt" dengan mode "rt"
+    if (dtpesan== NULL ){ // Melakukan Pengecekan apakah pointer dtpesan menunjuk kepada file yang dituju ("datapesan.txt")
+		printf("\t\t\t| FILE TIDAK DAPAT DIBUKA!\r\n");
+		menu_admin();
+	}
+		/* Ambil isi file ngenggunakan fungsi fread(), lalu tampilkan ke layar */
+	while ((fread(&Pesan, sizeof(Pesan), JUM_BLOK, dtpesan)) == JUM_BLOK )
+	printf ("\t\t|     %d          %d           %s               %s           %d       %d Hari     Rp.%.2f\n", Pesan.id_pemesan, Pesan.pilih_tipe, Pesan.nama, Pesan.noHP, Pesan.jumlah_kamar, Pesan.lama_sewa, total);
+	fclose(dtpesan);
+	printf ("\t\t|==================================================================================================================================|\n");
 }
 
 void masuk(){

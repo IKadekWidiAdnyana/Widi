@@ -16,6 +16,7 @@ User u;
 //deklarasi variabel
 time_t waktuserver;
 int biaya_admin=5000;
+int hari1;
 
 //struct untuk pesan kamar
 struct pesanKamar{
@@ -27,6 +28,12 @@ struct pesanKamar{
 		int pilih_tipe;
 		int jumlah_kamar;
 		int lama_sewa;
+		int tglCI;
+		int blnCI;
+		int thnCI;
+		int tglCO;
+		int blnCO;
+		int thnCO;
 	}Pesan;
 	
 int total=0;
@@ -56,9 +63,14 @@ void pesan_lagi();
 void data_pemesan();
 void list_data_pemesan();
 void lihat_data_pemesan();
+void hari();
+void kalenderuntukCO ();
+int Februari (int thn);        
+int BknFeb (int thn, int bln); 
 	
 // assign namaFile (nF) agar menyimpan string "logRecord.txt"
 char namaFile[] = "logRecord.txt";
+FILE *tampilan;
 
 
 //harga kamar/malam
@@ -88,19 +100,12 @@ int main (){
 void header(){
     system ("cls");
     welcome();
-	printf  ("\t\t\t\t\t*********************************************************\n");
-	printf  ("\t\t\t\t\t||                                                     ||\n");	
-	printf  ("\t\t\t\t\t||       *Program Reservasi Kamar Entity's Hotel*      ||\n");
-	printf  ("\t\t\t\t\t||                                                     ||\n");
-	printf  ("\t\t\t\t\t*********************************************************\n");
-	printf  ("\t\t\t\t\t||                         PEMBUAT:                    ||\n");
-	printf  ("\t\t\t\t\t||                                                     ||\n");
-	printf  ("\t\t\t\t\t||  1. I Kadek Widi Adnyana             (2105551015)   ||\n");
-	printf  ("\t\t\t\t\t||  2. Bayu Indra Mahadika              (2105551018)   ||\n");
-	printf  ("\t\t\t\t\t||                                                     ||\n");
-	printf  ("\t\t\t\t\t*********************************************************\n");
-	printf  ("\t\t\t\t\t                Tekan ENTER untuk lanjut...	 	     \n");
-    	printf  ("\t\t\t\t\t*********************************************************\n");
+    tampilan=fopen("header.txt","r");
+	char file[300];	
+		while(fgets(file, sizeof(file), tampilan)){ 
+			printf("\t\t\t\t %s", file);
+		}
+		fclose(tampilan);
 	getchar ();
     system ("cls");
 }
@@ -127,12 +132,13 @@ void menu_kategori(){
 			// Jika pengguna menginput angka 1 maka dipanggil fungsi tentang_hotel()
 			tentang_hotel();
 				tekan:
-			printf("\t\t\t\t\tTekan 1 Untuk Kembali	:");
+			printf("\n");
+			printf("\t\t\t\t  Tekan 1 Untuk Kembali	:");
 			scanf("%d", &pilih1);
 			if (pilih1== 1)
 				menu_kategori();
 			else 
-			printf ("\tAnda Tidak Menekan 1!, Silahkan Tekan  Ulang 1 \n");
+			printf ("\t\t\t\t  Anda Tidak Menekan 1!, Silahkan Tekan  Ulang 1 \n");
 			goto tekan;
 			break;
 		case 2:
@@ -290,19 +296,12 @@ void masuk_admin(){
 
 void tentang_hotel(){
 	system("cls");
-	printf ("\t\t\t\t\t-----------------------------------------------------------\n");
-	printf ("\t\t\t\t\t||                     TENTANG HOTEL                     ||\n");
-	printf ("\t\t\t\t\t-----------------------------------------------------------\n");
-	printf ("\t\t\t\t\t| ENTITY'S HOTEL terletak di suatu lahan seluas 39 hektar |\n");
-    	printf ("\t\t\t\t\t|di garis pantai  yang indah di mana merupakan tempat yang|\n");
-    	printf ("\t\t\t\t\t|   cocok untuk bisnis dan liburan. Lokasinya langsung    |\n");
-    	printf ("\t\t\t\t\t|mengarah ke matahari terbit di pantai, di mana menawarkan|\n");
-    	printf ("\t\t\t\t\t|   layanan terbaik dengan jangkauan layanan 24 jam dan   |\n");
-    	printf ("\t\t\t\t\t|     keramahan yang ditawarkan selama masa inap Anda.    |\n");
-    	printf ("\t\t\t\t\t|         Alamat Hotel : Jln. Hang Tuah, Sanur Bali       |\n");
-    	printf ("\t\t\t\t\t|                  Telepon : +62 36123456                 |\n");
-    	printf ("\t\t\t\t\t|           Email Reservasi: entity@hotel.co.id           |\n");
-    	printf ("\t\t\t\t\t|---------------------------------------------------------|\n");
+	tampilan=fopen("tentangHotel.txt","r");
+	char file[300];	
+		while(fgets(file, sizeof(file), tampilan)){ 
+			printf("\t\t\t\t %s", file);
+		}
+		fclose(tampilan);
 }
 
 void tipe_kamar(){
@@ -395,6 +394,8 @@ void pesan_kamar(){
     printf  ("\t\t\t\t\t|PILIH TIPE KAMAR          :"); fflush(stdin); scanf("%d", &Pesan.pilih_tipe, 10);
     printf  ("\t\t\t\t\t|JUMLAH KAMAR PESAN        :"); fflush(stdin); scanf("%d", &Pesan.jumlah_kamar);
     printf  ("\t\t\t\t\t|LAMA INAP                 :"); fflush(stdin); scanf("%d", &Pesan.lama_sewa);
+    printf  ("\t\t\t\t\t|Check In HARI [ANGKA]     :"); scanf ("%d", &hari1);
+    printf  ("\t\t\t\t\t|Check In [DD/MM/YYYY]     :"); fflush(stdin); scanf ("%d/%d/%d", &Pesan.tglCI, &Pesan.blnCI, &Pesan.thnCI);
     fwrite(&Pesan, sizeof(Pesan), 1, dtpesan);
     system("cls");
     data_pemesan (); //mencetak struk dengan memanggil fungsi detPemesanan
@@ -414,28 +415,39 @@ void data_pemesan(){
     printf  ("\t\t\t\t\t|PILIHAN TIPE KAMAR        :%d\n", Pesan.pilih_tipe);
     printf  ("\t\t\t\t\t|JUMLAH KAMAR PESAN        :%d\n", Pesan.jumlah_kamar);
     printf  ("\t\t\t\t\t|LAMA INAP                 :%d HARI\n", Pesan.lama_sewa);
-
-	if(Pesan.pilih_tipe, "DELUXE ROOM"){
+    printf  ("\t\t\t\t\t|Check In                  :");
+	hari (); //memanggil fungsi hari 
+	printf (" %d/%d/%d\n", Pesan.tglCI, Pesan.blnCI, Pesan.thnCI);
+	kalenderuntukCO (); //memanggil fungsi kalenderuntukCO
+	
+	hari1=hari1+(Pesan.lama_sewa%7);
+	while (hari1>7)
+		hari1=hari1%7;	
+	printf  ("\t\t\t\t\t|Check Out                 :");
+	hari();
+	printf (" %d/%d/%d\n", Pesan.tglCO,Pesan.blnCO, Pesan.thnCO) ;
+	
+	if(Pesan.pilih_tipe==1 , "DELUXE ROOM"){
 		jmlh_deluxeR -= Pesan.jumlah_kamar;
 		total = (Pesan.lama_sewa*deluxeR+biaya_admin)* Pesan.jumlah_kamar;
 		printf  ("\t\t\t\t\t|HARGA TOTAL               :Rp. %d\n", total);	
 	}
-	else if(Pesan.pilih_tipe, "JUNIOR SUITE"){
+	else if(Pesan.pilih_tipe==2 , "JUNIOR SUITE"){
 		jmlh_juniorS -= Pesan.jumlah_kamar;
 		total = (Pesan.lama_sewa*juniorS+biaya_admin)* Pesan.jumlah_kamar;
 		printf  ("\t\t\t\t\t|HARGA TOTAL               :Rp. %d\n", total);
 	}
-	else if(Pesan.pilih_tipe, "EXECUTIVE SUITE"){
+	else if(Pesan.pilih_tipe==3 , "EXECUTIVE SUITE"){
 		jmlh_executiveS -= Pesan.jumlah_kamar;
 		total = (Pesan.lama_sewa*executiveS+biaya_admin)* Pesan.jumlah_kamar;
 		printf  ("\t\t\t\t\t|HARGA TOTAL               :Rp. %d\n", total);
 	}
-	else if(Pesan.pilih_tipe, "REGENCY SUITE"){
+	else if(Pesan.pilih_tipe==4 , "REGENCY SUITE"){
 		jmlh_regencyS -= Pesan.jumlah_kamar;
 		total = (Pesan.lama_sewa*regencyS+biaya_admin)* Pesan.jumlah_kamar;
 		printf  ("\t\t\t\t\t|HARGA TOTAL               :Rp. %d\n", total);
 	}
-	else if(Pesan.pilih_tipe, "PRESIDENTIAL SUITE"){
+	else if(Pesan.pilih_tipe==5 , "PRESIDENTIAL SUITE"){
 		jmlh_presidentialS -= Pesan.jumlah_kamar;
 		total = (Pesan.lama_sewa*presidentialS+biaya_admin)* Pesan.jumlah_kamar;
 		printf  ("\t\t\t\t\t|HARGA TOTAL               :Rp. %d\n", total);
@@ -630,4 +642,93 @@ void waktu(){
     time( & waktuserver);
     struct tm * waktu = localtime( & waktuserver);
     printf("\n\t\t\t\t\t||************************Tanggal: %i/%i/%i/%i:%i*************************||\n\n", waktu -> tm_mday, waktu -> tm_mon + 1, waktu -> tm_year + 1900, waktu -> tm_hour, waktu -> tm_min);
+}
+
+void hari (){
+	switch (hari1){
+		case 1 : printf ("SENIN"); break ;
+		case 2 : printf ("SELASA"); break ;
+		case 3 : printf ("RABU"); break ;
+		case 4 : printf ("KAMIS"); break ;
+		case 5 : printf ("JUMAT"); break ;
+		case 6 : printf ("SABTU"); break ;
+		case 7 : printf ("MINGGU"); break ;
+	}
+}
+
+void kalenderuntukCO (){
+	
+	Pesan.tglCO = 0 ;
+	Pesan.blnCO = 0 ;
+	Pesan.thnCO = 0 ;
+	//menggunakan do while 
+	do {
+		if (Pesan.lama_sewa <= 31) 
+		{
+			if (Pesan.blnCI == 2) 
+				Pesan.tglCO = Februari (Pesan.thnCI);
+			else 
+				Pesan.tglCO = BknFeb (Pesan.thnCI,Pesan.blnCI);
+				
+			if (Pesan.tglCI + Pesan.lama_sewa > Pesan.tglCO) 
+			{
+				Pesan.blnCO = Pesan.blnCI + 1 ;
+				
+				/
+				if (Pesan.blnCO>12){
+					Pesan.thnCO=Pesan.thnCI+1;
+					Pesan.blnCO=1;
+				}
+				else
+				Pesan.thnCO = Pesan.thnCI ;
+				Pesan.tglCO = Pesan.tglCI + Pesan.lama_sewa - Pesan.tglCO ;
+
+			}
+			else 
+			{
+				Pesan.tglCO= Pesan.tglCI+Pesan.lama_sewa;
+				Pesan.blnCO=Pesan.blnCI;
+				Pesan.thnCO=Pesan.thnCI;
+			}
+		
+		}
+		else 
+		{
+			if (Pesan.blnCI == 2) 
+				Pesan.tglCO = Februari (Pesan.blnCI);
+			else 
+				Pesan.tglCO = BknFeb (Pesan.thnCI,Pesan.blnCI);
+				Pesan.lama_sewa = Pesan.lama_sewa - Pesan.tglCO;
+			if (Pesan.blnCI == 12)
+			{
+				Pesan.blnCI = 1 ; 
+				Pesan.thnCI = Pesan.thnCI + 1 ;
+			}
+			else
+				Pesan.blnCI = Pesan.blnCI + 1 ;
+		}
+	}
+	while (Pesan.thnCO== 0); 
+}
+
+int BknFeb (int thn, int bln){
+	thn = Pesan.thnCI;
+	bln = Pesan.blnCI;
+	
+	if ((Pesan.blnCI==1) || (Pesan.blnCI==3) || (Pesan.blnCI==5) || (Pesan.blnCI==7) || (Pesan.blnCI==8) || (Pesan.blnCI==10) || (Pesan.blnCI==12)){
+		return 31 ;
+	}
+	else { 
+		return 30 ;
+	}
+}
+
+int Februari (int thn){
+	thn = Pesan.thnCI;
+	if ((Pesan.thnCI % 100 != 0) && (Pesan.thnCI % 4 == 0)||(Pesan.thnCI % 400 == 0)){ 
+		return 29 ; 
+	}
+	else {
+		return 28 ;
+	}		
 }

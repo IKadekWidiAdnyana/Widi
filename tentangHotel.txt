@@ -1,0 +1,13 @@
+|---------------------------------------------------------|
+||                     TENTANG HOTEL                     ||
+|---------------------------------------------------------|
+| ENTITY'S HOTEL terletak di suatu lahan seluas 39 hektar |
+|di garis pantai  yang indah di mana merupakan tempat yang|
+|   cocok untuk bisnis dan liburan. Lokasinya langsung    |
+|mengarah ke matahari terbit di pantai, di mana menawarkan|
+|   layanan terbaik dengan jangkauan layanan 24 jam dan   |
+|     keramahan yang ditawarkan selama masa inap Anda.    |
+|	      Alamat Hotel    : Jln. Hang Tuah, Sanur Bali      |
+|	      Telepon         : +62 36123456                    |
+|	      Email Reservasi	: entity@hotel.co.id              |
+|---------------------------------------------------------|

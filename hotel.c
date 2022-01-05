@@ -13,13 +13,15 @@ typedef struct {
 } User;
 User u;
 
-//deklarasi variabel
+//deklarasi variabel global
 time_t waktuserver;
 int biaya_admin=5000;
 int hari1;
+int pilih1;
+char jawab;
 
 //struct untuk pesan kamar
-struct pesanKamar{
+typedef struct pesanKamar{
 		int id_pemesan;
 		char nama[20];
 		char noHP[20];
@@ -34,7 +36,8 @@ struct pesanKamar{
 		int tglCO;
 		int blnCO;
 		int thnCO;
-	}Pesan;
+	}pesanKamar;
+	pesanKamar Pesan;
 	
 int total=0;
 
@@ -44,7 +47,6 @@ char pass_admin[20];
 
 //Deklarasi fungsi-fungsi yang digunakan pada program ini
 void header();
-void menu();
 void error_alert();
 void menu_masuk();
 void menu_kategori();
@@ -66,7 +68,12 @@ void lihat_data_pemesan();
 void hari();
 void kalenderuntukCO ();
 int Februari (int thn);        
-int BknFeb (int thn, int bln); 
+int BknFeb (int thn, int bln);
+void rumus_total();
+int checkNomor(pesanKamar Pesan, int id);
+void hapus_pesanan();
+void hapus();
+void hapusdtpesan (pesanKamar Pesan, int r);
 	
 // assign namaFile (nF) agar menyimpan string "logRecord.txt"
 char namaFile[] = "logRecord.txt";
@@ -126,20 +133,10 @@ void menu_kategori(){
 	printf  ("\t\t\t\t\t Masukkan nomor menu yang anda inginkan ==> ");
 	scanf   ("%d", &kategori);
 	system  ("cls");
-	int pilih1;
 	switch(kategori){
 		case 1:
 			// Jika pengguna menginput angka 1 maka dipanggil fungsi tentang_hotel()
 			tentang_hotel();
-				tekan:
-			printf("\n");
-			printf("\t\t\t\t  Tekan 1 Untuk Kembali	:");
-			scanf("%d", &pilih1);
-			if (pilih1== 1)
-				menu_kategori();
-			else 
-			printf ("\t\t\t\t  Anda Tidak Menekan 1!, Silahkan Tekan  Ulang 1 \n");
-			goto tekan;
 			break;
 		case 2:
 			// Jika pengguna menginput angka 2 maka dipanggil fungsi tipe_kamar()
@@ -223,7 +220,8 @@ void menu_admin(){
 	printf  ("\t\t\t\t\t||   1   |    LIHAT TIPE KAMAR                         ||\n");
 	printf  ("\t\t\t\t\t||   2   |    PESAN KAMAR                              ||\n");
 	printf  ("\t\t\t\t\t||   3   |    LIHAT DATA PEMESANAN                     ||\n");
-	printf  ("\t\t\t\t\t||   4   |    KEMBALI KE MENU PROGRAM                  ||\n");
+	printf  ("\t\t\t\t\t||   4   |    HAPUS DATA PESANAN                       ||\n");
+	printf  ("\t\t\t\t\t||   5   |    KEMBALI KE MENU PROGRAM                  ||\n");
 	printf  ("\t\t\t\t\t---------------------------------------------------------\n");
 	printf  ("\t\t\t\t\t Masukkan nomor menu yang anda inginkan ==> ");
 	scanf   ("%d", &admin1);
@@ -242,6 +240,8 @@ void menu_admin(){
 			lihat_data_pemesanan();
 			break;
 		case 4:
+			hapus_pesanan();
+		case 5:
 			menu_masuk();
 		default:
 			// Kembali ke label ktgri_admin jika terjadi kesalahan dalam menginput pilihan
@@ -302,6 +302,16 @@ void tentang_hotel(){
 			printf("\t\t\t\t %s", file);
 		}
 		fclose(tampilan);
+	int pilih;
+			tekan:
+			printf("\n");
+			printf("\t\t\t\t  Tekan 1 Untuk Kembali	:");
+			scanf("%d", &pilih);
+			if (pilih== 1)
+				menu_kategori();
+			else 
+			printf ("\t\t\t\t  Anda Tidak Menekan 1!, Silahkan Tekan  Ulang 1 \n");
+			goto tekan;
 }
 
 void tipe_kamar(){
@@ -366,6 +376,7 @@ void tipe_Kamar(){
 
 //fungsi pemesanan
 void pesan_kamar(){
+	system ("cls");
 	tipe_kamar();
 	
     printf ("\n\n");
@@ -379,40 +390,53 @@ void pesan_kamar(){
 		printf("\t\t\t\t\t|File tidak dapat dibuat!\r\n");
 		menu_admin();
 	}
-    printf  ("\t\t\t\t\t|ID PEMESAN                :"); fflush(stdin); scanf("%d", &Pesan.id_pemesan);
-    printf  ("\t\t\t\t\t|NAMA PEMESAN              :"); fflush(stdin); scanf("%s", Pesan.nama, 20);
-    printf  ("\t\t\t\t\t|NOMOR HP                  :"); fflush(stdin); scanf("%s", &Pesan.noHP);
-    printf  ("\t\t\t\t\t|JENIS KELAMIN             :"); fflush(stdin); scanf("%s", &Pesan.jenis_kelamin);
-    printf  ("\t\t\t\t\t|UMUR                      :"); fflush(stdin); scanf("%d", &Pesan.umur);
-    printf  ("\t\t\t\t\t|PILIHAN TIPE KAMAR\n");
-    printf  ("\t\t\t\t\t 1. DELUXE ROOM \n");
-    printf  ("\t\t\t\t\t 2. JUNIOR SUITE \n");
-    printf  ("\t\t\t\t\t 3. EXECUTIVE SUITE \n");
-    printf  ("\t\t\t\t\t 4. REGENCY SUITE \n");
-    printf  ("\t\t\t\t\t 5. PRESIDENTIAL SUITE \n");
-    
-    printf  ("\t\t\t\t\t|PILIH TIPE KAMAR          :"); fflush(stdin); scanf("%d", &Pesan.pilih_tipe, 10);
-    printf  ("\t\t\t\t\t|JUMLAH KAMAR PESAN        :"); fflush(stdin); scanf("%d", &Pesan.jumlah_kamar);
-    printf  ("\t\t\t\t\t|LAMA INAP                 :"); fflush(stdin); scanf("%d", &Pesan.lama_sewa);
-    printf  ("\t\t\t\t\t|Check In HARI [ANGKA]     :"); scanf ("%d", &hari1);
-    printf  ("\t\t\t\t\t|Check In [DD/MM/YYYY]     :"); fflush(stdin); scanf ("%d/%d/%d", &Pesan.tglCI, &Pesan.blnCI, &Pesan.thnCI);
-    fwrite(&Pesan, sizeof(Pesan), 1, dtpesan);
-    system("cls");
-    data_pemesan (); //mencetak struk dengan memanggil fungsi detPemesanan
-		printf ("\t\t\t\t\t Data pemesanan tersimpan. \n");
-		fclose(dtpesan);
+	
+	do{
+		printf  ("\t\t\t\t\t|PILIH KODE TIPE KAMAR     :");
+		scanf("%d", &Pesan.pilih_tipe);
+		if (Pesan.pilih_tipe >=1 && Pesan.pilih_tipe <=5){	
+		printf  ("\t\t\t\t\t|ID PEMESAN                :"); fflush(stdin); scanf("%d", &Pesan.id_pemesan);
+	    printf  ("\t\t\t\t\t|NAMA PEMESAN              :"); fflush(stdin); gets (Pesan.nama);
+	    printf  ("\t\t\t\t\t|NOMOR HP                  :"); fflush(stdin); scanf("%s", &Pesan.noHP);
+	    printf  ("\t\t\t\t\t|JENIS KELAMIN             :"); fflush(stdin); scanf("%s", &Pesan.jenis_kelamin);
+	    printf  ("\t\t\t\t\t|UMUR                      :"); fflush(stdin); scanf("%d", &Pesan.umur);
+	    printf  ("\t\t\t\t\t|JUMLAH KAMAR PESAN        :"); fflush(stdin); scanf("%d", &Pesan.jumlah_kamar);
+    	printf  ("\t\t\t\t\t|LAMA INAP                 :"); fflush(stdin); scanf("%d", &Pesan.lama_sewa);
+   		printf  ("\t\t\t\t\t|Check In HARI [ANGKA]     :"); scanf ("%d", &hari1);
+    	printf  ("\t\t\t\t\t|Check In [DD/MM/YYYY]     :"); fflush(stdin); scanf ("%d/%d/%d", &Pesan.tglCI, &Pesan.blnCI, &Pesan.thnCI);
+    	rumus_total();
+    	printf  ("\t\t\t\t\t|HARGA TOTAL               :Rp. %d\n", Pesan.total);
+    	
+		fwrite(&Pesan, sizeof(Pesan), 1, dtpesan);
+		}
+		else{
+			fflush(stdin);
+			printf("\t\t\t\t\t|MASUKKAN KODE TIPE KAMAR YANG SUDAH ADA\n");
+			getch();
+			pesan_kamar();
+		}
+		data_pemesan();
+		printf("\t\t\t\t\t--------------------------------------------------------------\n");
+		printf ("\t\t\t\t\t|DATA PEMESANAN BERHASIL TERSIMPAN!. \n");
+		printf ("\t\t\t\t\t|Pesan Kamar Lagi? Y/T :"); fflush(stdin);
+		scanf("%s", &jawab);
+	}
+	while (jawab == 'Y' || jawab=='y');
+	fclose(dtpesan);
+	menu_admin();
 }
 
 void data_pemesan(){
-    printf  ("\t\t\t\t\t---------------------------------------------------------------\n");
+	system("cls");
+	printf  ("\t\t\t\t\t---------------------------------------------------------------\n");
     printf ("\t\t\t\t\t||                       DATA PEMESANAN                       ||\n");
     printf  ("\t\t\t\t\t---------------------------------------------------------------\n");
-    printf  ("\t\t\t\t\t|ID PEMESAN                :%d\n", Pesan.id_pemesan);
+    printf  ("\t\t\t\t\t|PILIHAN KODE TIPE KAMAR   :%d\n", Pesan.pilih_tipe);
+	printf  ("\t\t\t\t\t|ID PEMESAN                :%d\n", Pesan.id_pemesan);
     printf  ("\t\t\t\t\t|NAMA PEMESAN              :%s\n", Pesan.nama);
     printf  ("\t\t\t\t\t|NOMOR HP                  :%s\n", Pesan.noHP);
     printf  ("\t\t\t\t\t|JENIS KELAMIN             :%s\n", Pesan.jenis_kelamin);
     printf  ("\t\t\t\t\t|UMUR                      :%d\n", Pesan.umur);
-    printf  ("\t\t\t\t\t|PILIHAN TIPE KAMAR        :%d\n", Pesan.pilih_tipe);
     printf  ("\t\t\t\t\t|JUMLAH KAMAR PESAN        :%d\n", Pesan.jumlah_kamar);
     printf  ("\t\t\t\t\t|LAMA INAP                 :%d HARI\n", Pesan.lama_sewa);
     printf  ("\t\t\t\t\t|Check In                  :");
@@ -426,33 +450,36 @@ void data_pemesan(){
 	printf  ("\t\t\t\t\t|Check Out                 :");
 	hari();
 	printf (" %d/%d/%d\n", Pesan.tglCO,Pesan.blnCO, Pesan.thnCO) ;
-	
-	if(Pesan.pilih_tipe==1 , "DELUXE ROOM"){
+	printf  ("\t\t\t\t\t|HARGA TOTAL               :Rp. %d\n", Pesan.total);
+		
+}
+
+void rumus_total(){
+	if(Pesan.pilih_tipe==1, "DELUXE ROOM"){
 		jmlh_deluxeR -= Pesan.jumlah_kamar;
-		total = (Pesan.lama_sewa*deluxeR+biaya_admin)* Pesan.jumlah_kamar;
-		printf  ("\t\t\t\t\t|HARGA TOTAL               :Rp. %d\n", total);	
+		Pesan.total = (Pesan.lama_sewa*deluxeR+biaya_admin)* Pesan.jumlah_kamar;
+		//printf  ("\t\t\t\t\t|HARGA TOTAL               :Rp. %d\n", total);	
 	}
-	else if(Pesan.pilih_tipe==2 , "JUNIOR SUITE"){
+	else if(Pesan.pilih_tipe==2, "JUNIOR SUITE"){
 		jmlh_juniorS -= Pesan.jumlah_kamar;
-		total = (Pesan.lama_sewa*juniorS+biaya_admin)* Pesan.jumlah_kamar;
-		printf  ("\t\t\t\t\t|HARGA TOTAL               :Rp. %d\n", total);
+		Pesan.total = (Pesan.lama_sewa*juniorS+biaya_admin)* Pesan.jumlah_kamar;
+	//	printf  ("\t\t\t\t\t|HARGA TOTAL               :Rp. %d\n", total);
 	}
-	else if(Pesan.pilih_tipe==3 , "EXECUTIVE SUITE"){
+	else if(Pesan.pilih_tipe==3, "EXECUTIVE SUITE"){
 		jmlh_executiveS -= Pesan.jumlah_kamar;
-		total = (Pesan.lama_sewa*executiveS+biaya_admin)* Pesan.jumlah_kamar;
-		printf  ("\t\t\t\t\t|HARGA TOTAL               :Rp. %d\n", total);
+		Pesan.total = (Pesan.lama_sewa*executiveS+biaya_admin)* Pesan.jumlah_kamar;
+		//printf  ("\t\t\t\t\t|HARGA TOTAL               :Rp. %d\n", total);
 	}
-	else if(Pesan.pilih_tipe==4 , "REGENCY SUITE"){
+	else if(Pesan.pilih_tipe==4, "REGENCY SUITE"){
 		jmlh_regencyS -= Pesan.jumlah_kamar;
-		total = (Pesan.lama_sewa*regencyS+biaya_admin)* Pesan.jumlah_kamar;
-		printf  ("\t\t\t\t\t|HARGA TOTAL               :Rp. %d\n", total);
+		Pesan.total = (Pesan.lama_sewa*regencyS+biaya_admin)* Pesan.jumlah_kamar;
+		//printf  ("\t\t\t\t\t|HARGA TOTAL               :Rp. %d\n", total);
 	}
-	else if(Pesan.pilih_tipe==5 , "PRESIDENTIAL SUITE"){
+	else if(Pesan.pilih_tipe==5, "PRESIDENTIAL SUITE"){
 		jmlh_presidentialS -= Pesan.jumlah_kamar;
-		total = (Pesan.lama_sewa*presidentialS+biaya_admin)* Pesan.jumlah_kamar;
-		printf  ("\t\t\t\t\t|HARGA TOTAL               :Rp. %d\n", total);
+		Pesan.total = (Pesan.lama_sewa*presidentialS+biaya_admin)* Pesan.jumlah_kamar;
+		//printf  ("\t\t\t\t\t|HARGA TOTAL               :Rp. %d\n", total);
 	} 
-	pesan_lagi();
 }
 
 void lihat_data_pemesan(){
@@ -498,6 +525,90 @@ void list_data_pemesan(){
 	printf ("\t\t|     %d          %d           %s               %s           %d       %d Hari     Rp.%.2f\n", Pesan.id_pemesan, Pesan.pilih_tipe, Pesan.nama, Pesan.noHP, Pesan.jumlah_kamar, Pesan.lama_sewa, total);
 	fclose(dtpesan);
 	printf ("\t\t|==================================================================================================================================|\n");
+}
+
+int checkNomor(pesanKamar Pesan,int id){
+	FILE *dtpesan;
+	int c = 1;
+	if(c==1){
+		dtpesan = fopen("datapesan.txt","rb");
+		while(fread(&Pesan, sizeof(Pesan),1,dtpesan)){
+			if( id == Pesan.pilih_tipe){
+				fclose(dtpesan);
+				return 1;
+			}
+		}
+	}else{
+		c = 0;
+		fclose(dtpesan);
+		return 0;
+	}
+}
+
+void hapus_pesanan (){
+	system ("cls");
+	int pil_hapus ; //deklarasi variabel pil_hapus bertipe data integer
+	list_data_pemesan (); //memanggil fungsi list_data_pemesan
+	printf ("\n\n"); //untuk enter jarak
+	printf ("\t\t\t\t\t|=========================================================|\n");
+    printf ("\t\t\t\t\t|                       HAPUS PESANAN                     |\n");
+    printf ("\t\t\t\t\t|=========================================================|\n");
+    printf ("\t\t\t\t\t| TEKAN 1 untuk hapus pesanan di atas                     |\n");
+    printf ("\t\t\t\t\t| TEKAN 2 untuk keluar                                    |\n");
+    kembali_memilih :
+    printf ("\t\t\t\t\t| Pilihan : ");
+    scanf  ("%d", &pil_hapus);
+    if (pil_hapus==1){ //jika memilih 1 akan mengarah pada fungsi hapus
+    	hapus ();
+	}
+	else if (pil_hapus==2){ //jika memilih 2 akan mengarah pada fungsi menuadm
+		menu_admin ();
+	}
+	else //jika salah memilih maka akan tampil error dengan memanggil fungsi error_alert dan kembali untuk memilih pilihan yang sesuai
+		error_alert ();
+		goto kembali_memilih ;
+}
+
+void hapus (){
+	int pil_hapus ; //deklarasi pil_hapus pada fungsi hapus ke dalam variabel bertipe data int
+	printf ("\t\t\t\t\t| Pilih ID pemesanan yang akan dihapus : ");
+	scanf  ("%d",&pil_hapus); fflush(stdin);
+	printf ("\t\t\t\t\t| Apakah anda yakin? (Y/T) : ");
+	jawab = toupper(getche());			/* Baca jawaban dari keyboard */
+	if (jawab == 'Y'|| jawab == 'y') 
+	{	hapusdtpesan(Pesan, pil_hapus); //memanggil fungsi hapusdtpesan
+		hapus_pesanan();
+	}hapus_pesanan(); //kembali pada fungsi hapus_pesanan jika tidak memilih Y atau y
+}
+
+void hapusdtpesan (pesanKamar Pesan, int r){
+	FILE *tmp; // Membuat pointer tmp untuk menunjuk pada file "Temp_Data.txt"
+	int s;
+	
+		if (checkNomor(Pesan, r) == 0){ //memanggil fungsi checkNomor jika 0 maka akan menampilkan data pemesanan tidak ditemukan
+			printf("\t\t\t\t\t Data pemesanan %d tidak ditemukan\n",r);
+		}
+		else{
+			FILE*dtpesan ; // Membuat pointer dtpesan untuk menunjuk pada file "datapesan.txt"
+			dtpesan = fopen("datapesan.txt","rb"); //membuka file "datapesan.txt" dengan rb
+			tmp = fopen("Temp_Data.txt","wb");  //membuka file "Temp_Data.txt"
+			while (fread(&Pesan, sizeof(Pesan), 1, dtpesan)){
+				s = Pesan.pilih_tipe;
+				if ( s != r){
+					//Menyalin data file yang tidak ingin dihapus
+					fwrite(&Pesan, sizeof(Pesan), 1, tmp);
+				}
+			}
+			fclose(dtpesan);
+			fclose(tmp);
+			dtpesan = fopen("datapesan.txt","wb");
+			tmp = fopen("Temp_Data.txt","rb");
+			while(fread(&Pesan,sizeof(Pesan),1,tmp)){
+				fwrite(&Pesan,sizeof(Pesan),1,dtpesan);
+			}
+			fclose(dtpesan);  //Menggunakan fungsi fclose untuk menutup file "datapesan.txt" agar tidak diproses lagi
+			fclose(tmp);      //Menggunakan fungsi fclose untuk menutup file "tmp" agar tidak diproses lagi
+		}
 }
 
 void masuk(){
